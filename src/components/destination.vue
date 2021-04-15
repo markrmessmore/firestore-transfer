@@ -7,28 +7,28 @@
             <v-col cols="12">
                 <v-text-field
                     v-model="destination.apiKey"
-                    label="Destination Project API Key"
+                    label="Destination Project API Key*"
                     outlined
                 ></v-text-field>
             </v-col>
             <v-col cols="12" >
                 <v-text-field
                     v-model="destination.projectId"
-                    label="Destination Project ID"
+                    label="Destination Project ID*"
                     outlined
                 ></v-text-field>
             </v-col>
             <v-col cols="12" >
                 <v-text-field
                     v-model="destination.appId"
-                    label="Destination Project App ID"
+                    label="Destination Project App ID*"
                     outlined
                 ></v-text-field>
             </v-col>
             <v-col cols="12" md="3">
                 <v-text-field
                     v-model="destination.path"
-                    label="Destination Path: Collection"
+                    label="Collection*"
                     outlined
                 ></v-text-field>
             </v-col>
@@ -42,6 +42,7 @@
             <v-col cols="12" md="4" offset-md="1">
                 <v-text-field
                     v-model="destination.subCollection"
+                    :disabled="destination.doc == ''"
                     label="Destination Path: Sub-Collection (optional)"
                     outlined
                 ></v-text-field>
@@ -50,7 +51,7 @@
         <v-divider></v-divider>
         <v-row class="pa-3">
             <v-col cols="12" md="6" class="text-center">
-                <v-btn outlined color="red darken-3">
+                <v-btn outlined color="red darken-3" @click="clear()">
                     <v-icon left small>mdi-close-box-outline</v-icon>
                     Clear
                 </v-btn>
@@ -81,7 +82,14 @@ export default {
     },
     methods: {
         clear(){
-
+            this.destination = {
+                apiKey          : "",
+                appId           : "",
+                doc             : "",
+                path            : "",
+                projectId       : "",
+                subCollection   : ""
+            }
         },
         submit(){
             this.$store.dispatch('setData', this.destination)
@@ -90,15 +98,7 @@ export default {
     computed: {
         ready(){
             if (this.destination.apiKey != "" && this.destination.projectId != "" && this.destination.appId != "" && this.destination.path !== ''){
-                //IF THERE IS A SUB-COLLECTION THERE *HAS* TO BE A DOCUMENT
-                if (this.destination.doc !== ""){
-                    return true
-                }
-                else {
-                    if (this.destination.subCollection !== ""){
-                        return false
-                    }
-                }
+                return true
             }
             else {
                 return false

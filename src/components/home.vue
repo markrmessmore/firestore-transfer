@@ -7,28 +7,28 @@
             <v-col cols="12">
                 <v-text-field
                     v-model="source.apiKey"
-                    label="Source Project API Key"
+                    label="Source Project API Key*"
                     outlined
                 ></v-text-field>
             </v-col>
             <v-col cols="12" >
                 <v-text-field
                     v-model="source.projectId"
-                    label="Source Project ID"
+                    label="Source Project ID*"
                     outlined
                 ></v-text-field>
             </v-col>
             <v-col cols="12" >
                 <v-text-field
                     v-model="source.appId"
-                    label="Source Project App ID"
+                    label="Source Project App ID*"
                     outlined
                 ></v-text-field>
             </v-col>
             <v-col cols="12" >
                 <v-text-field
                     v-model="source.collection"
-                    label="Collection"
+                    label="Collection*"
                     outlined
                 ></v-text-field>
             </v-col>
@@ -36,7 +36,7 @@
         <v-divider></v-divider>
         <v-row class="pa-3">
             <v-col cols="12" md="6" class="text-center">
-                <v-btn outlined color="red darken-3">
+                <v-btn outlined color="red darken-3" @click="clear()">
                     <v-icon left small>mdi-close-box-outline</v-icon>
                     Clear
                 </v-btn>
@@ -65,7 +65,12 @@ export default {
     },
     methods: {
         clear(){
-
+            this.source = {
+                apiKey          : "",
+                appId           : "",
+                collection      : "",
+                projectId       : ""
+            }
         },
         submit(){
             this.$store.dispatch('getData', this.source)

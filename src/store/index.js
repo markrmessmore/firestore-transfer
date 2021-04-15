@@ -14,11 +14,15 @@ export default new Vuex.Store({
       msg     : "",
       status  : false
     }, 
+    logs: [],
     source: []
   },
   mutations: {
     setLoading(state, payload){
       state.loading = payload
+    },
+    setLog(state, payload){
+      state.logs = payload
     },
     setSource(state, payload){
       state.source  = payload
@@ -59,29 +63,78 @@ export default new Vuex.Store({
       }
       let destination = firebase.initializeApp(appData, payload.appId)
 
-      if (payload.subCollection == ''){
-        if (payload.doc == ''){
+      let finish      = function(logs){
+        commit('setLog', logs)
+        commit('setLoading', {msg: "", status: false})
+        router.push('/Result')
+      }
 
+      if (payload.subCollection == ''){
+        //IF THERE IS NO DOC SPECIFIED
+        if (payload.doc == ''){
+          let logs = []
+          let path = destination.firestore().collection(payload.path)
+          state.source.forEach(item => {
+            path.doc(item.id).set(item)
+            .then(() => {
+              let msg = `Record ${item.id} written to ${destination.name}`
+              logs.push(msg)
+              console.log(msg)
+            })
+            .catch(err => {
+              logs.push(err)
+              console.log(err)
+            })
+          })
+          finish(logs)
         }
         else {
-          let path = destination.firestore().collection(payload.path).doc()
-
+          // IF IS DOC SPECIFIED BUT NO SUBCOLLECTION
+          let logs = []
+          let path = destination.firestore().collection(payload.path).doc(payload.doc)
+          let sourceData = {}
+          state.source.forEach((item, i) => {
+            sourceData[i] = item
+          })
+          path.set(sourceData)
+          .then(() => {
+            let msg = `A total of ${state.source.length} records were written to ${destination.name}/${payload.doc}`
+            console.log(msg)
+            logs.push(msg)
+          })
+          .catch(err => {
+            console.log(err)
+            logs.push(err)
+          })
+          finish(logs)
         }
       }
       else {
-        let path = destination.firestore().collection(payload.path).doc(payload.doc).collection(payload.subCollection)
+        // IF BOTH DOC AND SUBCOLLECTION SPECIFIED
+        let logs  = [] 
+        let path  = destination.firestore().collection(payload.path).doc(payload.doc).collection(payload.subCollection)
         state.source.forEach(item => {
           path.doc(item.id).set(item)
-          .then(() => {console.log(`${item.id} written to ${destination.name}`)})
-          .catch(err => {console.log(err)})
+          .then(() => {
+            let msg = `Record ${item.id} written to ${destination.name}/${payload.doc}/${payload.subCollection}`
+            console.log(msg)
+            logs.push(msg)
+          })
+          .catch(err => {
+            console.log(err)
+            logs.push(err)
+          })
         })
-        commit('setLoading', {msg: "", status: false})
+        finish(logs)
       }      
     }
   },
   getters: {
     getLoading(state){
       return state.loading
+    },
+    getLogs(state){
+      return state.logs
     }
   }
 })
