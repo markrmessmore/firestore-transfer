@@ -1,6 +1,6 @@
 <template>
     <v-card-text class="body-1">
-        <v-toolbar flat dense dark color="secondary">
+        <v-toolbar flat dense dark color="accent">
             <v-toolbar-title>About</v-toolbar-title>
         </v-toolbar>
         <v-row>
@@ -16,7 +16,7 @@
                 {{item.des}}
             </v-col>
         </v-row>
-        <v-toolbar flat dense dark color="secondary" class="mt-2 mb-2">
+        <v-toolbar flat dense dark color="accent" class="mt-2 mb-2">
             <v-toolbar-title>License</v-toolbar-title>
         </v-toolbar>
         <v-row>
@@ -52,6 +52,11 @@ export default {
                     name: "Firestore",
                     link: "https://firebase.google.com/docs/firestore",
                     des : "A cloud-based NoSQL database."
+                },
+                {
+                    name: "Github Repository",
+                    link: "https://github.com/markrmessmore/firestore-transfer",
+                    des : "Go here for information and a live demo."
                 },
             ]
         }
