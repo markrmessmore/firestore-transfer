@@ -1,22 +1,2 @@
-# firestore-transfer
-
-## Project setup
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
-
-### Deploy Github Pages site
-git subtree push --prefix dist origin gh-pages
+### Firestore-Transfer
+See [GitHub Page](https://markrmessmore.github.io/firestore-transfer/) for documentation and information.
