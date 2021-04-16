@@ -112,18 +112,24 @@ export default new Vuex.Store({
       else {
         // IF BOTH DOC AND SUBCOLLECTION SPECIFIED
         let logs  = [] 
-        let path  = destination.firestore().collection(payload.path).doc(payload.doc).collection(payload.subCollection)
-        state.source.forEach(item => {
-          path.doc(item.id).set(item)
-          .then(() => {
-            let msg = `Record ${item.id} written to ${destination.name}/${payload.doc}/${payload.subCollection}`
-            console.log(msg)
-            logs.push(msg)
-          })
-          .catch(err => {
-            console.log(err)
-            logs.push(err)
-          })
+        let path  = destination.firestore().collection(payload.path).doc(payload.doc)
+        path.get()
+        .then(item => {
+          if (item.exists){
+            let docData = item.data()
+            docData[payload.subCollection] = state.source
+            console.log(docData)
+            return path.set(docData)
+          }
+        })
+        .then(() => {
+          let msg = `Records were written to ${destination.name}/${payload.doc}/${payload.subCollection}`
+          console.log(msg)
+          logs.push('1')
+        })
+        .catch(err => {
+          console.log(err)
+          logs.push(err)
         })
         finish(logs)
       }      

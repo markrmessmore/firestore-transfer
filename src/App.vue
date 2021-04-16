@@ -9,11 +9,10 @@
                   Firestore Data Transfer
                 </v-toolbar-title>
                 <v-spacer></v-spacer>
-                <v-btn outlined small class="">
-                  <v-icon left small>mdi-information-outline</v-icon>
-                  About
+                <v-btn outlined small class="" :to="getBtnInfo.route">
+                  <v-icon left small>{{getBtnInfo.icon}}</v-icon>
+                  {{getBtnInfo.label}}
                 </v-btn>
-                
             </v-toolbar>
             <v-row no-gutters align="center">
               <v-col cols="6" class="text-left">
@@ -47,6 +46,24 @@ export default {
     }
   },
   computed: {
+    getBtnInfo(){
+      let data  = {
+        icon  : '',
+        label : '',
+        route : ''
+      }
+      if (this.$route.name == 'About'){
+        data.icon   = 'mdi-home'
+        data.label  = 'Home'
+        data.route  = '/'
+      }
+      else {
+        data.icon   = 'mdi-information-outline'
+        data.label  = 'About'
+        data.route  = '/About'
+      }
+      return data
+    },
     getPath(){
       if (this.$route.name == 'Home'){
         return false

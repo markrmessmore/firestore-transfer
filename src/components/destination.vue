@@ -71,11 +71,11 @@ export default {
     data(){
         return {
             destination: {
-                apiKey          : "AIzaSyD7k8-DNfongcvNdrEUAcdfBwyRdbftXkc",
-                appId           : "1:493424609908:web:1fa5678b57a53bbee81f21",
+                apiKey          : "",
+                appId           : "",
                 doc             : "",
                 path            : "",
-                projectId       : "mydotahub",
+                projectId       : "",
                 subCollection   : ""
             },
         }

@@ -5,6 +5,17 @@
         </v-toolbar>
         <v-row class="pa-3" no-gutters>
             <v-col cols="12">
+                <v-alert 
+                    dense
+                    outlined
+                    text
+                    type="info"
+                    dismissible
+                >
+                    As of this version the tool does not play well with the back button. If you need to go back, you would be better suited starting over.
+                </v-alert>
+            </v-col>
+            <v-col cols="12">
                 <v-text-field
                     v-model="source.apiKey"
                     label="Source Project API Key*"
@@ -56,10 +67,10 @@ export default {
     data(){
         return {
             source: {
-                apiKey          : "AIzaSyBnPULgGsiMZHmce8AVeaQyhnYVNibagtc",
-                appId           : "1:262730644393:web:d7ffc602bc85668ba4a2b8",
-                collection      : "discordUsers",
-                projectId       : "wlddiscord"
+                apiKey          : "",
+                appId           : "",
+                collection      : "",
+                projectId       : ""
             }
         }
     },
