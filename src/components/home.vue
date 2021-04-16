@@ -1,7 +1,10 @@
 <template>
     <v-card-text>
         <v-toolbar flat dense dark color="secondary">
-            <v-toolbar-title>Source</v-toolbar-title>
+            <v-toolbar-title>
+                <v-icon left>mdi-database-export</v-icon>
+                Source
+            </v-toolbar-title>
         </v-toolbar>
         <v-row class="pa-3" no-gutters>
             <v-col cols="12">
@@ -89,7 +92,8 @@ export default {
     },
     computed: {
         ready(){
-            if (this.source.apiKey != "" && this.source.projectId != "" && this.source.appId != "" && this.source.collection){
+            if (this.source.apiKey != "" && this.source.projectId != "" && this.source.collection){
+                // && this.source.appId != "" 
                 return true
             }
             else {

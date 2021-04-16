@@ -1,7 +1,10 @@
 <template>
     <v-card-text>
         <v-toolbar flat dense dark color="secondary">
-            <v-toolbar-title>Destination</v-toolbar-title>
+            <v-toolbar-title>
+                <v-icon left>mdi-database-import</v-icon>
+                Destination
+            </v-toolbar-title>
         </v-toolbar>
         <v-row class="pa-3" no-gutters>
             <v-col cols="12">
