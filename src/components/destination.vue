@@ -43,7 +43,7 @@
                 <v-text-field
                     v-model="destination.subCollection"
                     :disabled="destination.doc == ''"
-                    label="Destination Path: Sub-Collection (optional)"
+                    label="Destination Path: Sub-Document Label (optional)"
                     outlined
                 ></v-text-field>
             </v-col>
