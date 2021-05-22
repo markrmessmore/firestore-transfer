@@ -47,6 +47,7 @@
                 </v-tab-item>
               </v-tabs>
               <loading></loading>
+              <toast></toast>
             </v-card>
           </v-col>
         </v-row>
@@ -59,9 +60,10 @@
 import  about           from  '@/components/about.vue'
 import  documentation   from  '@/components/documentation.vue'
 import  loading         from  '@/components/loading.vue'
+import  toast           from  '@/components/toast.vue'
 export default {
   components: {
-    about, documentation, loading
+    about, documentation, loading, toast
   },
   data(){
     return{

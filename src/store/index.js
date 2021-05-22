@@ -15,7 +15,11 @@ export default new Vuex.Store({
       status  : false
     }, 
     logs: [],
-    source: []
+    source: [],
+    toast: {
+      msg     : "",
+      status  : false
+    }
   },
   mutations: {
     setLoading(state, payload){
@@ -26,6 +30,9 @@ export default new Vuex.Store({
     },
     setSource(state, payload){
       state.source  = payload
+    },
+    setToast(state, payload){
+      state.toast   = {msg: payload, status: true}
     }
   },
   actions: {
@@ -45,6 +52,7 @@ export default new Vuex.Store({
           docData.id = doc.id
           sourceDocs.push(docData)
         })
+        commit('setToast', `A total of ${sourceDocs.length} documents were copied from the source collection.`)
         commit('setSource', sourceDocs)
         router.push('/Destination')
         commit('setLoading', {msg: "", status: false})
@@ -125,7 +133,7 @@ export default new Vuex.Store({
         .then(() => {
           let msg = `Records were written to ${destination.name}/${payload.doc}/${payload.subCollection}`
           console.log(msg)
-          logs.push('1')
+          logs.push(msg)
         })
         .catch(err => {
           console.log(err)
@@ -141,6 +149,9 @@ export default new Vuex.Store({
     },
     getLogs(state){
       return state.logs
+    },
+    getToast(state){
+      return state.toast
     }
   }
 })

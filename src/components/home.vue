@@ -93,7 +93,6 @@ export default {
     computed: {
         ready(){
             if (this.source.apiKey != "" && this.source.projectId != "" && this.source.collection){
-                // && this.source.appId != "" 
                 return true
             }
             else {
